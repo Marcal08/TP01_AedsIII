@@ -1,4 +1,4 @@
-package aeds3;
+package PackageNameckage aeds3;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -42,10 +42,10 @@ public class Arquivo<T extends Registro> {
     arquivo.writeInt(ultimoID);
     obj.setID(ultimoID);
 
-    arquivo.seek(arquivo.length());
-    long endereco = arquivo.getFilePointer();
     byte[] ba = obj.toByteArray();
     short tam = (short) ba.length;
+    arquivo.seek(arquivo.acharLapide(tam));
+    long endereco = arquivo.getFilePointer();
     arquivo.writeByte(' '); // lápide
     arquivo.writeShort(tam);
     arquivo.write(ba);
@@ -101,10 +101,11 @@ public class Arquivo<T extends Registro> {
       if (tam2 <= tam) {
         arquivo.seek(endereco + 1 + 2);
         arquivo.write(ba2);
-      } else {
+      }
+      else {
         arquivo.seek(endereco);
         arquivo.writeByte('*');
-        arquivo.seek(arquivo.length());
+        arquivo.seek(arquivo.acharLapide(tam));
         long endereco2 = arquivo.getFilePointer();
         arquivo.writeByte(' ');
         arquivo.writeShort(tam2);
@@ -115,6 +116,32 @@ public class Arquivo<T extends Registro> {
     }
     return false;
   }
+  public long acharLapide(short tam)
+  {
+     long tmp;
+     short tam2;
+     arquivo.seek(4);
+     while(arquivo.getFilePointer() != arquivo.length())
+	  {
+       tmp = arquivo.getFilePointer();
+       if(arquivo.readByte()=='*')
+        {
+           tam2 = arquivo.readShort();
+           if(tam2 <= tam)
+            {
+               return tmp;
+            }
+            else
+            {
+               arquivo.skipBytes(tam2);
+            }
+
+        }
+
+	  }
+        return arquivo.length();
+
+     }
 
   public void close() throws Exception {
     arquivo.close();
