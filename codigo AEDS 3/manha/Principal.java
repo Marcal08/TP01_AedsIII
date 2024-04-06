@@ -16,6 +16,7 @@ class Principal {
     Livro l3 = new Livro(-1, "9786559790005", "Modernidade Líquida", 48.1F);
     Livro l4 = new Livro(-1, "9788582714911", "Memória", 55.58F);
     Livro l5 = new Livro(-1, "9786587150062", "Com Amor", 48.9F);
+    Livro l6 = new Livro(-1, "9786587150212", "TOP", 50.00F);
     int id1, id2, id3, id4, id5;
 
     try {
@@ -30,7 +31,7 @@ class Principal {
       id3 = arqLivros.create(l3);
       System.out.println("Livro criado com o ID: " + id3);
 
-      id4 = arqLivros.create(l4);
+      id4 = arqLivros.create(l4); 
       System.out.println("Livro criado com o ID: " + id4);
 
       id5 = arqLivros.create(l5);
@@ -42,12 +43,12 @@ class Principal {
         System.out.println("Livro de ID " + id2 + " não encontrado!");
 
       l4.setTitulo("A Memória");
-      if (arqLivros.update(l4))
+       if (arqLivros.update(l4))
         System.out.println("Livro de ID " + l4.getID() + " alterado!");
       else
         System.out.println("Livro de ID " + l4.getID() + " não encontrado!");
 
-      arqLivros.reorganizar();
+      //arqLivros.reorganizar();
 
       System.out.println("\nLivro 3:\n" + arqLivros.read(3));
       System.out.println("\nLivro 1:\n" + arqLivros.read(1));

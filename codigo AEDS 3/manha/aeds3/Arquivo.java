@@ -1,4 +1,4 @@
-package PackageNameckage aeds3;
+package aeds3;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -44,7 +44,7 @@ public class Arquivo<T extends Registro> {
 
     byte[] ba = obj.toByteArray();
     short tam = (short) ba.length;
-    arquivo.seek(arquivo.acharLapide(tam));
+    arquivo.seek(acharLapide(tam));
     long endereco = arquivo.getFilePointer();
     arquivo.writeByte(' '); // lápide
     arquivo.writeShort(tam);
@@ -105,7 +105,7 @@ public class Arquivo<T extends Registro> {
       else {
         arquivo.seek(endereco);
         arquivo.writeByte('*');
-        arquivo.seek(arquivo.acharLapide(tam));
+        arquivo.seek(acharLapide(tam2));
         long endereco2 = arquivo.getFilePointer();
         arquivo.writeByte(' ');
         arquivo.writeShort(tam2);
@@ -116,18 +116,18 @@ public class Arquivo<T extends Registro> {
     }
     return false;
   }
-  public long acharLapide(short tam)
+  public long acharLapide(short tam)throws Exception
   {
      long tmp;
      short tam2;
-     arquivo.seek(4);
-     while(arquivo.getFilePointer() != arquivo.length())
+     arquivo.seek(TAM_CABECALHO);
+     while(arquivo.getFilePointer() < arquivo.length())
 	  {
-       tmp = arquivo.getFilePointer();
+      tmp = arquivo.getFilePointer();
        if(arquivo.readByte()=='*')
         {
            tam2 = arquivo.readShort();
-           if(tam2 <= tam)
+           if(tam2 >= tam)
             {
                return tmp;
             }
