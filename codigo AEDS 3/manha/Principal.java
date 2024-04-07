@@ -17,7 +17,7 @@ class Principal {
     Livro l4 = new Livro(-1, "9788582714911", "Memória", 55.58F);
     Livro l5 = new Livro(-1, "9786587150062", "Com Amor", 48.9F);
     Livro l6 = new Livro(-1, "9786587150212", "TOP", 50.00F);
-    int id1, id2, id3, id4, id5;
+    int id1, id2, id3, id4, id5, id6;
 
     try {
       arqLivros = new Arquivo<>("livros", Livro.class.getConstructor());
@@ -31,7 +31,7 @@ class Principal {
       id3 = arqLivros.create(l3);
       System.out.println("Livro criado com o ID: " + id3);
 
-      id4 = arqLivros.create(l4); 
+      id4 = arqLivros.create(l4);
       System.out.println("Livro criado com o ID: " + id4);
 
       id5 = arqLivros.create(l5);
@@ -48,6 +48,9 @@ class Principal {
       else
         System.out.println("Livro de ID " + l4.getID() + " não encontrado!");
 
+      id6 = arqLivros.create(l6);
+      System.out.println("Livro criado com o ID: " + id6);
+
       //arqLivros.reorganizar();
 
       System.out.println("\nLivro 3:\n" + arqLivros.read(3));
@@ -55,6 +58,7 @@ class Principal {
       System.out.println("\nLivro 5:\n" + arqLivros.read(5));
       System.out.println("\nLivro 4:\n" + arqLivros.read(4));
       System.out.println("\nLivro 2:\n" + arqLivros.read(2));
+      System.out.println("\nLivro 6:\n" + arqLivros.read(6));
 
       arqLivros.close();
 
